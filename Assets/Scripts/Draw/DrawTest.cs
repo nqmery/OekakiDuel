@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DrawTest : MonoBehaviour{
+	[SerializeField]
+	Color brushColor;
     Texture2D drawTexture ;
 	Color[] buffer;
 
@@ -21,13 +23,23 @@ public class DrawTest : MonoBehaviour{
 		for (int x = 0; x < 256; x++){
 			for (int y = 0; y < 256; y++){
 				if ((p - new Vector2 (x, y)).magnitude < 5){
-					buffer.SetValue (Color.black, x + 256 * y);
+					buffer.SetValue (brushColor, x + 256 * y);
 				}
 			}
 		}
 	}
 
 	void Update () {
+		// if(Input.GetMouseButtonDown(0)){
+		// 	Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+		// 	RaycastHit hit;
+		// 	if (Physics.Raycast (ray, out hit, 100.0f)) {
+		// 		Draw (hit.textureCoord * 256);
+		// 	}
+		// 	drawTexture.SetPixels (buffer);
+		// 	drawTexture.Apply ();
+		// 	GetComponent<Renderer> ().material.mainTexture = drawTexture;
+		// }
 		if (Input.GetMouseButton (0)) {
 			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 			RaycastHit hit;
