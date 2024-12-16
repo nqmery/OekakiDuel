@@ -11,7 +11,8 @@ Material:
   m_Shader: {fileID: 4800000, guid: f0fef7d88bd07bd4e91c1dc1b943f73d, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - COLOR_SYNTHESIS_ADD
   m_InvalidKeywords:
   - _EMISSION
   m_LightmapFlags: 1
@@ -66,6 +67,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - COLOR_SYNTHESIS: 0
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
@@ -90,5 +92,6 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _FixedColor: {r: 0, g: 0, b: 0, a: 0}
     - _FlowDirection: {r: 0, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
