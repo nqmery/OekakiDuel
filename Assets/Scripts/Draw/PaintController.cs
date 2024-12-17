@@ -4,21 +4,16 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class PaintControllerTest : MonoBehaviour{
-    ParamGenerator pg;
-
+public class PaintController : MonoBehaviour{
     [SerializeField]
 	private RawImage m_image = null;
 
 	private Texture2D m_texture = null;
 
-    [SerializeField]
-    private int m_width = 4;
+    public int m_width;
  
-    [SerializeField]
-    private int m_height = 4;
-    [SerializeField]
-    Color color;
+    public int m_height;
+    public Color paintColor;
  
     private Vector2 m_prePos;
     private Vector2 m_TouchPos;
@@ -61,7 +56,7 @@ public class PaintControllerTest : MonoBehaviour{
                 for ( int w = 0; w < width; ++w ){
                     int x = (int)(p_pos.x + w);
                     if ( x >= 0 && x <= m_texture.width ){
-                        m_texture.SetPixel( x, y, color ); //線を描画
+                        m_texture.SetPixel( x, y, paintColor ); //線を描画
                     }
                 }
             }
@@ -69,8 +64,7 @@ public class PaintControllerTest : MonoBehaviour{
         m_texture.Apply();
         m_prePos = m_TouchPos;
         m_preClickTime = m_clickTime;
-        ParamGenerator.paramGenerator.DebugLog(m_texture);
-    }
+	}
 
     public void OnTap( BaseEventData arg ){ //点を描画
         PointerEventData _event = arg as PointerEventData; //タッチの情報取得
@@ -94,20 +88,15 @@ public class PaintControllerTest : MonoBehaviour{
             for ( int w = 0; w < width; ++w ){
                 int x = (int)(p_pos.x + w);
                 if ( x >= 0 && x <= m_texture.width ){
-                    m_texture.SetPixel( x, y, color ); //点を描画
+                    m_texture.SetPixel( x, y, paintColor ); //点を描画
                 }
             }
         }       
         m_texture.Apply();
-
-        ParamGenerator.paramGenerator.DebugLog(m_texture);
     }
 
     private void Start (){
-
-        pg = ParamGenerator.paramGenerator;
-
-        color = Color.black;
+        paintColor = Color.black;
         var rect = m_image.gameObject.GetComponent<RectTransform>().rect;
         m_texture = new Texture2D((int)rect.width, (int)rect.height, TextureFormat.RGBA32, false);
 
