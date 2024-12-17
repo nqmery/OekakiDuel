@@ -12,7 +12,8 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - INK_PAINTER_NORMAL_BLEND_ADD
+  - DXT5NM_COMPRESS_USE
+  - INK_PAINTER_NORMAL_BLEND_USE_BRUSH
   m_InvalidKeywords: []
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
@@ -70,8 +71,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - DXT5NM_COMPRESS: 0
     - INK_PAINTER_NORMAL_BLEND: 0
     - TEXTURE_PAINT_NORMAL_BLEND: 0
+    - _BrushRotate: 0
     - _BrushScale: 0.6
     - _BumpScale: 1
     - _Cutoff: 0.5
