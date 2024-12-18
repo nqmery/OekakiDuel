@@ -7,8 +7,12 @@ using UnityEngine.UI;
 public class PaintController : MonoBehaviour{
     [SerializeField]
 	private RawImage m_image = null;
+    [SerializeField]
+    private Slider slider;
+    [SerializeField]
+    private int maxTime;
 
-	private Texture2D m_texture = null;
+	public Texture2D m_texture = null;
 
     public int m_width;
  
@@ -96,7 +100,11 @@ public class PaintController : MonoBehaviour{
     }
 
     private void Start (){
+        if(maxTime == 0){ //0除算対策
+            maxTime = 1;
+        }
         paintColor = Color.black;
+        slider.value = 1;
         var rect = m_image.gameObject.GetComponent<RectTransform>().rect;
         m_texture = new Texture2D((int)rect.width, (int)rect.height, TextureFormat.RGBA32, false);
 
