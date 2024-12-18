@@ -125,12 +125,12 @@ public class PaintController : MonoBehaviour{
 
         
         //テスト用 画像がサーバーから来たら即時反映
-        if (NetworkManager.networkManager != null)
+        /*if (NetworkManager.networkManager != null)
         {
             // メッセージ受信時に HandleMessage を実行
             NetworkManager.networkManager.OnMessageReceived += WriteTexture;
             Debug.Log("Received");
-        }
+        }*/
     }
 
     //下の関数を追加（2021/10/21）
