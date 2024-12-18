@@ -1,13 +1,13 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using Microsoft.Unity.VisualStudio.Editor;
+//using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 
 public class PaintChange : MonoBehaviour{
     [SerializeField]
     PaintController paintController;
     [SerializeField]
-    Image nowColorImage;
+    //Image nowColorImage;
     public void ChangeRed(){
         paintController.paintColor = Color.red;
     }
