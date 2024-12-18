@@ -4,7 +4,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+
+
+
 public class PaintController : MonoBehaviour{
+
+    ParamGenerator pg;
+
     [SerializeField]
 	private RawImage m_image = null;
 
@@ -64,7 +70,11 @@ public class PaintController : MonoBehaviour{
         m_texture.Apply();
         m_prePos = m_TouchPos;
         m_preClickTime = m_clickTime;
-	}
+
+
+        ParamGenerator.paramGenerator.DebugLog(m_texture);
+
+    }
 
     public void OnTap( BaseEventData arg ){ //点を描画
         PointerEventData _event = arg as PointerEventData; //タッチの情報取得
@@ -93,9 +103,15 @@ public class PaintController : MonoBehaviour{
             }
         }       
         m_texture.Apply();
+
+        ParamGenerator.paramGenerator.DebugLog(m_texture);
+
     }
 
     private void Start (){
+
+        pg = ParamGenerator.paramGenerator;
+
         paintColor = Color.black;
         var rect = m_image.gameObject.GetComponent<RectTransform>().rect;
         m_texture = new Texture2D((int)rect.width, (int)rect.height, TextureFormat.RGBA32, false);
