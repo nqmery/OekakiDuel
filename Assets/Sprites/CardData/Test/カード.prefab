@@ -282,6 +282,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6781237203517354988}
   - component: {fileID: 4365903738460017783}
+  - component: {fileID: 1497722856002230680}
   m_Layer: 0
   m_Name: "\u30AB\u30FC\u30C9"
   m_TagString: Untagged
@@ -357,6 +358,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1497722856002230680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3038084590598151208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 429f7484de4c1a449a8d3a733cb73d7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  opponentHpSlider: {fileID: 0}
+  attackDamage: 10
 --- !u!1 &5686424369885971399
 GameObject:
   m_ObjectHideFlags: 0
