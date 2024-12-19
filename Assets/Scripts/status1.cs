@@ -24,7 +24,7 @@ public class status1 : MonoBehaviour
         UpdateStatusText();
     }
     // ステータスのテキストを更新するメソッド
-    void UpdateStatusText()
+    　public void UpdateStatusText()
     {
         this.textComponent.text =
             "Attack: " + attack.ToString() + "\n" +

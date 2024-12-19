@@ -114,6 +114,7 @@ GameObject:
   - component: {fileID: 2343696936417475653}
   - component: {fileID: 2899287775691470547}
   - component: {fileID: 6985745741710124402}
+  - component: {fileID: 6562435617006553811}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -256,6 +257,21 @@ MonoBehaviour:
   attackText: {fileID: 2899287775691470547}
   defenseText: {fileID: 2899287775691470547}
   costText: {fileID: 2899287775691470547}
+--- !u!114 &6562435617006553811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2329237005900862635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e516b76c4495fb74cb64ff0d12644bdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attack: 0
+  defense: 0
+  cost: 0
 --- !u!1 &3038084590598151208
 GameObject:
   m_ObjectHideFlags: 0
