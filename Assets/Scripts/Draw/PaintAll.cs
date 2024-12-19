@@ -14,12 +14,15 @@ public class PaintAll : MonoBehaviour{
         rect = rawImage.gameObject.GetComponent<RectTransform>().rect;
     }
     public void AllPaint(){
-        color = paintController.paintColor;
-        for(int w = 0; w < (int)rect.width; w++){
-            for (int h = 0; h < (int)rect.height; h++){
-                paintController.m_texture.SetPixel(w, h, color);
+        if(DrawManager.canDraw){
+            color = paintController.paintColor;
+            for(int w = 0; w < (int)rect.width; w++){
+                for (int h = 0; h < (int)rect.height; h++){
+                    paintController.m_texture.SetPixel(w, h, color);
+                }
             }
+            paintController.m_texture.Apply();
         }
-        paintController.m_texture.Apply();
+        
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 public class DrawManager : MonoBehaviour{
@@ -16,10 +17,10 @@ public class DrawManager : MonoBehaviour{
     [SerializeField]
     private DrawSave drawSave;
     [SerializeField]
-    private PaintAll paintAll;
+    private Text nowDrawNumberText;
     private int nowCardDrawNumber;
     private float time;
-    private bool bbbbbb;
+    public static bool canDraw;
     // Start is called before the first frame update
     void Start(){
         if(maxTime == 0){ //0除算対策
@@ -27,12 +28,14 @@ public class DrawManager : MonoBehaviour{
         }
         nowCardDrawNumber = 0;
         time = 0f;
-        bbbbbb = false;
+        timeFillImage.color = Color.green;
+        canDraw = false;
+        nowDrawNumberText.text = $"{nowCardDrawNumber + 1}枚目";
     }
 
     // Update is called once per frame
     void Update(){
-        if(bbbbbb){
+        if(canDraw){
             time += Time.deltaTime;
             if(maxTime - time >= 0){
                 slider.value = (maxTime - time) / maxTime;
@@ -41,24 +44,20 @@ public class DrawManager : MonoBehaviour{
                 }
             }
             if(maxTime - time <= 0){
-                bbbbbb = false;
+                canDraw = false;
                 Texture2D texture2D = (Texture2D)rawImage.texture;
                 var rect = rawImage.gameObject.GetComponent<RectTransform>().rect;
                 drawSave.CardSave(texture2D, nowCardDrawNumber);
                 paintController.WhiteTexture((int)rect.width, (int)rect.height);
-                paintController.enabled = false;
-                paintAll.enabled = false;
-                
                 if(nowCardDrawNumber < 4){
                     nowCardDrawNumber++;
+                    nowDrawNumberText.text = $"{nowCardDrawNumber + 1}枚目";
                 }
             }
         }
     }
     public void bbbbbbTrue(){
-        bbbbbb = true;
-        paintController.enabled = true;
-        paintAll.enabled = true;
+        canDraw = true;
         time = 0f;
         timeFillImage.color = Color.green;
     }
