@@ -1,10 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+//using UnityEditor.MemoryProfiler;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class PaintController : MonoBehaviour{
+
+    public static PaintController paintController = null;
+
     [SerializeField]
 	private RawImage m_image = null;
     [SerializeField]
@@ -68,7 +72,13 @@ public class PaintController : MonoBehaviour{
         m_texture.Apply();
         m_prePos = m_TouchPos;
         m_preClickTime = m_clickTime;
-	}
+
+        //テスト用
+        //parameter表示
+        ParamGenerator.paramGenerator.DebugLog(m_texture);
+        //送信
+        //NetworkManager.networkManager.SendWebSocketMessage(m_texture.GetRawTextureData());
+    }
 
     public void OnTap( BaseEventData arg ){ //点を描画
         PointerEventData _event = arg as PointerEventData; //タッチの情報取得
@@ -97,12 +107,21 @@ public class PaintController : MonoBehaviour{
             }
         }       
         m_texture.Apply();
+
+        //テスト用
+        //parameter表示
+        ParamGenerator.paramGenerator.DebugLog(m_texture);
+        //送信
+        //NetworkManager.networkManager.SendWebSocketMessage(m_texture.GetRawTextureData());
+
     }
 
     private void Start (){
         if(maxTime == 0){ //0除算対策
             maxTime = 1;
         }
+        paintController = this;
+
         paintColor = Color.black;
         slider.value = 1;
         var rect = m_image.gameObject.GetComponent<RectTransform>().rect;
@@ -116,6 +135,15 @@ public class PaintController : MonoBehaviour{
         // //ペイントエリアの指定
         var m_imagePos = m_image.gameObject.GetComponent<RectTransform>().anchoredPosition;
         m_disImagePos = new Vector2(m_imagePos.x - rect.width/2, m_imagePos.y - rect.height/2);
+
+        
+        //テスト用 画像がサーバーから来たら即時反映
+        /*if (NetworkManager.networkManager != null)
+        {
+            // メッセージ受信時に HandleMessage を実行
+            NetworkManager.networkManager.OnMessageReceived += WriteTexture;
+            Debug.Log("Received");
+        }*/
     }
 
     //下の関数を追加（2021/10/21）
@@ -127,5 +155,20 @@ public class PaintController : MonoBehaviour{
             }
         }
         m_texture.Apply();
+    }
+
+    //テスト用
+    //画像がサーバーから来たら即時反映
+    public void SetTexture(byte[] bytes)
+    {
+        Debug.Log("Data: " + System.Text.Encoding.ASCII.GetString(bytes));
+        m_texture.LoadRawTextureData(bytes);
+        m_texture.Apply();
+
+    }
+
+    public Texture2D GetTexture()
+    {
+        return m_texture;
     }
 }
