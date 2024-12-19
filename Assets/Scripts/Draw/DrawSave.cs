@@ -18,7 +18,7 @@ public class DrawSave : MonoBehaviour{
         var cardParameter = ParamGenerator.paramGenerator.GenerateParams(texture2D);
         cardData.id = cardNumber + 1;
         cardData.attack = cardParameter.attack;
-        cardData.defense = cardParameter.defense;
+        cardData.defence = cardParameter.defense;
         cardData.cost = cardParameter.cost;
         cardData.speed = cardParameter.speed;
         cardData.effect = cardParameter.effect;

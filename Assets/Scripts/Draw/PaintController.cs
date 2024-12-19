@@ -77,7 +77,7 @@ public class PaintController : MonoBehaviour{
 
         //テスト用
         //parameter表示
-        ParamGenerator.paramGenerator.DebugLog(m_texture);
+        // ParamGenerator.paramGenerator.DebugLog(m_texture);
         //送信
         //NetworkManager.networkManager.SendWebSocketMessage(m_texture.GetRawTextureData());
     }
@@ -108,7 +108,7 @@ public class PaintController : MonoBehaviour{
 
         //テスト用
         //parameter表示
-        ParamGenerator.paramGenerator.DebugLog(m_texture);
+        // ParamGenerator.paramGenerator.DebugLog(m_texture);
         //送信
         //NetworkManager.networkManager.SendWebSocketMessage(m_texture.GetRawTextureData());
 
