@@ -12,7 +12,7 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - INK_PAINTER_COLOR_BLEND_ALPHA_ONLY
+  - INK_PAINTER_COLOR_BLEND_USE_CONTROL
   m_InvalidKeywords: []
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
@@ -68,6 +68,7 @@ Material:
     m_Floats:
     - INK_PAINTER_COLOR_BLEND: 0
     - TEXTURE_PAINT_COLOR_BLEND: 0
+    - _BrushRotate: 0
     - _BrushScale: 0.147
     - _BumpScale: 1
     - _Cutoff: 0.5
