@@ -14,19 +14,23 @@ public class GM2 : MonoBehaviour
     {
         HPbar=GameObject.Find("HPbar").GetComponent<Slider>();
         HPbar.maxValue = HP;
-        HPbar.value = 0;
+        HPbar.value = HP;
     }
 
     // Update is called once per frame
     void Update()
     {
-      if (Attack_flag == true)
-        {
-            HPbar.value -= 10;
-        }
+      
     }
     public void Attack()
     {
-        Attack_flag = true;
+    if (HPbar.value > 0) // HPが残っている場合
+        {
+            HPbar.value -= 10; // HPを10減少
+        }
+        else
+        {
+            Debug.Log("HPはもうありません！");
+        }
     }
 }
