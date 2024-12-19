@@ -15,6 +15,10 @@ public class NetworkManager : MonoBehaviour
 
     //通信内容を保持するリスト
     private List<byte[]> messageList = new List<byte[]>();
+
+    //プレイヤー番号を保持する変数
+    public static byte playerID = 0; //仮で0に設定
+
     async void Awake()
     {
         networkManager = this;
@@ -61,7 +65,7 @@ public class NetworkManager : MonoBehaviour
     }
 
     //====== messageList関連 ========
-    // メッセージリストの先頭を取得して、削除して詰める 空の場合はnullを返す
+    // メッセージリストの先頭を読むだけ 空の場合はnullを返す
     public byte[] GetMessage()
     {
         if (messageList.Count == 0)
@@ -69,10 +73,20 @@ public class NetworkManager : MonoBehaviour
             return null;
         }
         byte[] message = messageList[0];
-        messageList.RemoveAt(0);
 
         return message;
     }
 
+    //メッセージリストの先頭を読み、削除して詰める 空の場合はnullを返す
+    public byte[] PopMessage()
+    {
+        if (messageList.Count == 0)
+        {
+            return null;
+        }
+        byte[] message = messageList[0];
+        messageList.RemoveAt(0);
+        return message;
+    }
 
 }

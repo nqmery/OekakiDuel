@@ -6,6 +6,9 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class PaintController : MonoBehaviour{
+
+    public static PaintController paintController = null;
+
     [SerializeField]
 	private RawImage m_image = null;
 
@@ -70,7 +73,7 @@ public class PaintController : MonoBehaviour{
         //parameter表示
         ParamGenerator.paramGenerator.DebugLog(m_texture);
         //送信
-        NetworkManager.networkManager.SendWebSocketMessage(m_texture.GetRawTextureData());
+        //NetworkManager.networkManager.SendWebSocketMessage(m_texture.GetRawTextureData());
     }
 
     public void OnTap( BaseEventData arg ){ //点を描画
@@ -105,11 +108,13 @@ public class PaintController : MonoBehaviour{
         //parameter表示
         ParamGenerator.paramGenerator.DebugLog(m_texture);
         //送信
-        NetworkManager.networkManager.SendWebSocketMessage(m_texture.GetRawTextureData());
+        //NetworkManager.networkManager.SendWebSocketMessage(m_texture.GetRawTextureData());
 
     }
 
     private void Start (){
+        paintController = this;
+
         paintColor = Color.black;
         var rect = m_image.gameObject.GetComponent<RectTransform>().rect;
         m_texture = new Texture2D((int)rect.width, (int)rect.height, TextureFormat.RGBA32, false);
@@ -146,7 +151,7 @@ public class PaintController : MonoBehaviour{
 
     //テスト用
     //画像がサーバーから来たら即時反映
-    private void WriteTexture(byte[] bytes)
+    public void SetTexture(byte[] bytes)
     {
         Debug.Log("Data: " + System.Text.Encoding.ASCII.GetString(bytes));
         m_texture.LoadRawTextureData(bytes);
@@ -154,4 +159,8 @@ public class PaintController : MonoBehaviour{
 
     }
 
+    public Texture2D GetTexture()
+    {
+        return m_texture;
+    }
 }
