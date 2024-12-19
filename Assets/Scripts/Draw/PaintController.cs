@@ -154,7 +154,7 @@ public class PaintController : MonoBehaviour{
     public void SetTexture(byte[] bytes)
     {
         Debug.Log("Data: " + System.Text.Encoding.ASCII.GetString(bytes));
-        m_texture.LoadRawTextureData(bytes);
+        m_texture.LoadImage(bytes);
         m_texture.Apply();
 
     }

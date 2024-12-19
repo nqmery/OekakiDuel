@@ -25,7 +25,7 @@ public class TestCardTrader : MonoBehaviour
     public void OnPressed()
     {
         Texture2D image = PaintController.paintController.GetTexture();
-        byte[] imageBinary = image.GetRawTextureData();
+        byte[] imageBinary = image.EncodeToPNG();
         byte[] sendData = (new byte[] {24, NetworkManager.playerID,0,0,0,0,0 }).Concat(imageBinary).ToArray();
         NetworkManager.networkManager.SendWebSocketMessage(sendData);
         //テスト用 画像送信関数
