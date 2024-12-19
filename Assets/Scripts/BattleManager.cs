@@ -117,23 +117,32 @@ public class BattleManager : MonoBehaviour
 
     public void OnClickCard(int cardNum)
     {
-        //カードの選択完了
-        myCardSelected = CardFolder.cardFolder.myCard[cardNum];
-        //選択したカードを使用済みにする
-        CardFolder.cardFolder.myCard[cardNum].isUsed = true;
-        //カード選択完了信号を送信
-        byte[] sendData = (new byte[] { 36,0, NetworkManager.playerID, (byte)myCardSelected.id }).ToArray();
-        NetworkManager.networkManager.SendWebSocketMessage(sendData);
-
-        //GameStateをWaitingSelectに変更
-        ChangeGameState(GameState.WaitingSelect);
-        //相手のカードが選択済みのとき
-        if(rivalCardSelected != null)
+        //カードのコストが足りない時メッセージを出す
+        if (cost < CardFolder.cardFolder.myCard[cardNum].cost)
         {
-            ChangeGameState(GameState.TurnProcessing);
+            Debug.Log("コストが足りません");
+            return;
         }
+        else
+        {
+            //カードの選択完了
+            myCardSelected = CardFolder.cardFolder.myCard[cardNum];
+            //選択したカードを使用済みにする
+            CardFolder.cardFolder.myCard[cardNum].isUsed = true;
+            //カード選択完了信号を送信
+            byte[] sendData = (new byte[] { 36, 0, NetworkManager.playerID, (byte)myCardSelected.id }).ToArray();
+            NetworkManager.networkManager.SendWebSocketMessage(sendData);
 
-        Debug.Log("CardSelected: " + myCardSelected.id);
+            //GameStateをWaitingSelectに変更
+            ChangeGameState(GameState.WaitingSelect);
+            //相手のカードが選択済みのとき
+            if (rivalCardSelected != null)
+            {
+                ChangeGameState(GameState.TurnProcessing);
+            }
+
+            Debug.Log("CardSelected: " + myCardSelected.id);
+        }
     }
 
     public void SetRivalCard(int cardNum)
@@ -153,36 +162,28 @@ public class BattleManager : MonoBehaviour
 
     public void TurnProcess(byte[] recievedData)
     {
+        Debug.Log(CardEffectsList.cardEffectsList.returnEffectExplain(recievedData[4]));
         //効果番号で分岐
         switch (recievedData[4])
         {
             case 1: //通常攻撃
-                Debug.Log("通常攻撃");
                 break;
             case 10: //先制攻撃
-                Debug.Log("先制攻撃");
                 break;
             case 11: //相手の攻撃無効化
-                Debug.Log("相手の攻撃無効化");
                 break;
             case 12: //ターン開始時に体力全回復
-                Debug.Log("ターン開始時に体力全回復");
                 break;
             case 13: //ターン終了時に両者全回復
-                Debug.Log("ターン終了時に両者全回復");
                 break;
             case 14: //相手の防御力が云々
-                Debug.Log("相手の防御力が云々");
                 break;
             case 15: //相手の素早さを下げる
-                Debug.Log("相手の素早さを下げる");
                 break;
             case 16: //両者の攻撃無効化
-                Debug.Log("両者の攻撃無効化");
                 break;
 
             default:
-                Debug.Log("不正な値:" + recievedData.ToString());
                 break;
 
         }

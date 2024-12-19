@@ -7,7 +7,7 @@ public class CardData
 {
     public int id;
     public int attack;
-    public int defense;
+    public int defence;
     public int cost;
     public int speed;
     public int effect;

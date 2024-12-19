@@ -23,15 +23,26 @@ public class status1 : MonoBehaviour
         //this.textComponent = GameObject.Find("Text (TMP)").GetComponent<Text>();
 
         // テキストを更新
-        UpdateStatusText();
+        //UpdateStatusText();
     }
+    
     // ステータスのテキストを更新するメソッド
-    　public void UpdateStatusText()
+    [SerializeField]
+    　public void ShowMyStatusText(int cardNum)
+        {
+        textComponent.text =
+            CardFolder.cardFolder.returnMyCardStatusText(cardNum);
+    }
+    [SerializeField]
+        public void ShowRivalStatusText(int cardNum)
     {
         textComponent.text =
-            "Attack: " + attack.ToString() + "\n" +
-            "Defense: " + defense.ToString() + "\n" +
-            "Cost: " + cost.ToString();
+            CardFolder.cardFolder.returnRivalCardStatusText(cardNum);
+    }
+    [SerializeField]
+    public void HideStatusText()
+    {
+        textComponent.text = "";
     }
 
 
