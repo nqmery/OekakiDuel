@@ -49,7 +49,7 @@ public class PaintChange : MonoBehaviour{
         shading.value = 1f;
     }
     public void ChangePurple(){
-        Color color = new Color(0.4862745f, 0.8f, 0.8784314f);
+        Color color = new Color(0.4862745f, 0.2941177f, 0.5529412f);
         paintController.paintColor = color;
         shading.value = 1f;
     }

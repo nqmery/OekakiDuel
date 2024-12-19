@@ -4410,7 +4410,7 @@ PrefabInstance:
       objectReference: {fileID: 1744889622}
     - target: {fileID: 7195575116400127526, guid: 7c2962d686666da428c2ac47a5367076, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeWater
+      value: ChangeLightBlue
       objectReference: {fileID: 0}
     - target: {fileID: 7195575116400127526, guid: 7c2962d686666da428c2ac47a5367076, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
