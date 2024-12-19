@@ -18,6 +18,8 @@ public class DrawManager : MonoBehaviour{
     private DrawSave drawSave;
     [SerializeField]
     private Text nowDrawNumberText;
+    [SerializeField]
+    private Text startText;
     private int nowCardDrawNumber;
     private float time;
     public static bool canDraw;
@@ -31,6 +33,8 @@ public class DrawManager : MonoBehaviour{
         timeFillImage.color = Color.green;
         canDraw = false;
         nowDrawNumberText.text = $"{nowCardDrawNumber + 1}枚目";
+        startText.text = "Ready?";
+        Invoke("canDrawTrue", 2f);
     }
 
     // Update is called once per frame
@@ -50,15 +54,23 @@ public class DrawManager : MonoBehaviour{
                 drawSave.CardSave(texture2D, nowCardDrawNumber);
                 paintController.WhiteTexture((int)rect.width, (int)rect.height);
                 if(nowCardDrawNumber < 4){
+                    startText.enabled = true;
                     nowCardDrawNumber++;
                     nowDrawNumberText.text = $"{nowCardDrawNumber + 1}枚目";
+                    startText.text = "Ready?";
+                    Invoke("canDrawTrue", 2f);
                 }
             }
         }
     }
-    public void bbbbbbTrue(){
+    public void canDrawTrue(){
         canDraw = true;
         time = 0f;
         timeFillImage.color = Color.green;
+        startText.text = "Go";
+        Invoke("TextEnableFalse", 1f);
+    }
+    void TextEnableFalse(){
+        startText.enabled = false;
     }
 }
