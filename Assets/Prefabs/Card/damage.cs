@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class damage : MonoBehaviour
+public class Damage : MonoBehaviour
 {
     public Slider opponentHpSlider; // 相手のHPゲージ（Slider）
     public int attackDamage = 10;  // カードの攻撃力
