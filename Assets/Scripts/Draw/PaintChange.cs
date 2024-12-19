@@ -43,6 +43,16 @@ public class PaintChange : MonoBehaviour{
         paintController.paintColor = color;
         shading.value = 1f;
     }
+    public void ChangeLightBlue(){
+        Color color = new Color(0.6156863f, 0.8f, 0.8784314f);
+        paintController.paintColor = color;
+        shading.value = 1f;
+    }
+    public void ChangePurple(){
+        Color color = new Color(0.4862745f, 0.2941177f, 0.5529412f);
+        paintController.paintColor = color;
+        shading.value = 1f;
+    }
     // public void ChangeVeryThick(){
     //     paintController.m_height = 100;
     //     paintController.m_width = 100;
