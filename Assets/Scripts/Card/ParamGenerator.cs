@@ -34,11 +34,11 @@ public class ParamGenerator : MonoBehaviour
         uint hashValue = crc32.Calc(image.GetRawTextureData());
 
         crc32 = null;
-        int attack = (int)hashValue / 35000;
-        int defense = (int)hashValue / 70000;
-        int cost = (int)hashValue % 250 ;
-        int speed = (int)hashValue / 500;
-        int effect = (int)hashValue % 10;
+        int attack = (int)(hashValue / 70000);
+        int defense = (int)(hashValue / 140000);
+        int cost = (int)(hashValue % 250);
+        int speed = (int)(hashValue % 500);
+        int effect = (int)(hashValue % 10);
 
         return (hashValue, attack, defense, cost, speed, effect);
     }

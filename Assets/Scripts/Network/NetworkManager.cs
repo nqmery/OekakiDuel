@@ -33,6 +33,7 @@ public class NetworkManager : MonoBehaviour
             // メッセージをリストに追加
             messageList.Add(bytes);
 
+
             // イベントを発火して通知
             OnMessageReceived?.Invoke(bytes);
         };
