@@ -22,7 +22,7 @@ public class TestCardReciever : MonoBehaviour
             {
                 //カード情報の受信処理
                 NetworkManager.networkManager.PopMessage();
-                byte[] imageBinary = recievedData.Skip(7).ToArray();
+                byte[] imageBinary = recievedData.Skip(9).ToArray();
                 PaintController.paintController.SetTexture(imageBinary);
             }
         }
