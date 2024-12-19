@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NativeWebSocket;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 public class NetworkManager : MonoBehaviour
@@ -19,7 +21,22 @@ public class NetworkManager : MonoBehaviour
     //プレイヤー番号を保持する変数
     public static byte playerID = 0; //仮で0に設定
 
-    async void Awake()
+    public Text statusText; // ステータスメッセージ
+    private void Awake()
+    {
+        if (networkManager == null)
+        {
+            networkManager = this;
+            DontDestroyOnLoad(gameObject); // シーン遷移時に破棄されないように設定
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+    }
+    public async void GameStart()
     {
         networkManager = this;
         websocket = new WebSocket("ws://localhost:3000");
@@ -28,13 +45,32 @@ public class NetworkManager : MonoBehaviour
         {
             // メッセージをデコード
             //string message = System.Text.Encoding.UTF8.GetString(bytes);
-            Debug.Log("Message received: " + bytes.ToString());
+            //Debug.Log("Message received: " + bytes.ToString());
+
+            // バイト配列を適切に表示
+            string receivedData = BitConverter.ToString(bytes);
+            Debug.Log($"Message received: {receivedData}");
+
+            // 必要ならバイト配列をデコード（例: テキストの場合）
+            //string decodedMessage = System.Text.Encoding.UTF8.GetString(bytes);
+            //Debug.Log($"Decoded message: {decodedMessage}");
 
             // メッセージをリストに追加
             messageList.Add(bytes);
 
             // イベントを発火して通知
             OnMessageReceived?.Invoke(bytes);
+
+            if (bytes.Length > 0)
+            {
+                byte signal = bytes[0];
+                if (signal == 0x10) // 0x10がゲーム開始シグナル
+                {
+                    Debug.Log("Game start signal received. Loading next scene...");
+                    SceneManager.LoadScene("DrawScene");
+                }
+            }
+            statusText.text = "対戦相手を待っています...";
         };
 
         await websocket.Connect();
@@ -43,7 +79,7 @@ public class NetworkManager : MonoBehaviour
     void Update()
     {
 #if !UNITY_WEBGL || UNITY_EDITOR
-        websocket.DispatchMessageQueue();
+        websocket?.DispatchMessageQueue();
 #endif
     }
 
