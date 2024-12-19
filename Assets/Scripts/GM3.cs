@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GM3 : MonoBehaviour
 {
-    Slider HPbarme;
+    public Slider HPbarme;
     public int HP = 150;
     public bool Attackob_flag = false;
 
