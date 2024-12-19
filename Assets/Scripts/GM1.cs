@@ -15,11 +15,11 @@ public class GM1 : MonoBehaviour
     {
 
         // GM2スクリプトの参照を取得
-        gm2 = GameObject.Find("GM2Object").GetComponent<GM2>();
+        gm2 = GameObject.Find("HPbar").GetComponent<GM2>();
 
 
         // GM3スクリプトの参照を取得
-        gm3 = GameObject.Find("GM3Object").GetComponent<GM3>();
+        gm3 = GameObject.Find("HPbarme").GetComponent<GM3>();
 
 
         // WinText初期化

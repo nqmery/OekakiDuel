@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +9,8 @@ public class status1 : MonoBehaviour
     public int attack = 0;
     public int defense = 0;
     public int cost = 0;
-    Text textComponent;
+    [SerializeField]
+    TextMeshProUGUI textComponent;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +20,7 @@ public class status1 : MonoBehaviour
         cost = Random.Range(1, 21);     // 1から20の範囲でランダム値を生成
 
         // テキストコンポーネントを取得
-        this.textComponent = GameObject.Find("Text").GetComponent<Text>();
+        //this.textComponent = GameObject.Find("Text (TMP)").GetComponent<Text>();
 
         // テキストを更新
         UpdateStatusText();
@@ -26,7 +28,7 @@ public class status1 : MonoBehaviour
     // ステータスのテキストを更新するメソッド
     　public void UpdateStatusText()
     {
-        this.textComponent.text =
+        textComponent.text =
             "Attack: " + attack.ToString() + "\n" +
             "Defense: " + defense.ToString() + "\n" +
             "Cost: " + cost.ToString();
