@@ -53,8 +53,15 @@ public class BattleNetworkManager : MonoBehaviour
                     break;
 
                 case 33:
+                    //コスト回復量の倍増 (引数が0のときコスト回復量倍加)
+                    BattleManager.battleManager.CostHealEffect(0);
+                    NetworkManager.networkManager.PopMessage();
+                    await Task.Delay(3000);
                     break;
-
+                case 90:
+                    //ゲーム終了信号の受信
+                    BattleManager.battleManager.GameEnd(NetworkManager.networkManager.PopMessage()[2]);
+                    break;
                 default:
                     break;
             }

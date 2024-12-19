@@ -11,6 +11,7 @@ public class BattleManager : MonoBehaviour
     //設定
     const UInt16 DefaultHP = 10000;
     const UInt16 DefaultCost = 100;
+    const UInt16 DefaultCostHeal = 50;
 
     public enum GameState
     {
@@ -27,24 +28,18 @@ public class BattleManager : MonoBehaviour
 
     private int turnCount = 0; //ターン数
 
-    public class PlayerClass
-    {
-        public int hp;
-        public int cost;
-        public PlayerClass()
-        {
-            hp = DefaultHP;
-            cost = DefaultCost;
-        }
-    }
+    public int myHP; //体力
+    public int cost; //コスト
+    public int costHeal; //コスト効果
+    public int rivalHP; //相手の体力
+
+
     //選択したカードのインスタンス
     //自分のカード
     private CardData myCardSelected = null;
     //相手のカード
     private CardData rivalCardSelected = null;
 
-    public PlayerClass playerInstanceMe = null;
-    public PlayerClass playerInstanceRival = null;
 
     // Start is called before the first frame update
     void Awake()
@@ -56,9 +51,10 @@ public class BattleManager : MonoBehaviour
         myCardSelected = null;
         rivalCardSelected = null;
 
-        playerInstanceMe = new PlayerClass();
-        playerInstanceRival = new PlayerClass();
-
+        myHP = DefaultHP; 
+        cost = DefaultCost; 
+        costHeal  = DefaultCostHeal; 
+        rivalHP = DefaultHP; 
     }
 
     // Update is called once per frame
@@ -90,6 +86,22 @@ public class BattleManager : MonoBehaviour
     public void ChangeGameState(GameState state)
     {
         gameState = state;
+        if(state == GameState.TurnEnd)
+        {
+            //コスト回復
+            cost += costHeal;
+        }
+    }
+    public void CostHealEffect(int value)
+    {
+        if (value == 0)
+        {
+            costHeal *= 2;
+        }
+        else
+        {
+            costHeal += value;
+        }
     }
 
     //ターン数を変更するメソッド(BattleNetworkManagerから呼び出し,GameStateをCardSelectに, 選択カードオブジェクトを初期化)
@@ -181,14 +193,33 @@ public class BattleManager : MonoBehaviour
         byte[] Player1Health = new byte[] { recievedData[9], recievedData[10] };
         if (NetworkManager.playerID == 0)
         {
-            playerInstanceMe.hp = BitConverter.ToUInt16(Player0Health, 0);
-            playerInstanceRival.hp = BitConverter.ToUInt16(Player1Health, 0);
+            myHP = BitConverter.ToUInt16(Player0Health, 0);
+            rivalHP = BitConverter.ToUInt16(Player1Health, 0);
         }
         else
         {
-            playerInstanceMe.hp = BitConverter.ToUInt16(Player1Health, 0);
-            playerInstanceRival.hp = BitConverter.ToUInt16(Player0Health, 0);
+            myHP = BitConverter.ToUInt16(Player1Health, 0);
+            rivalHP = BitConverter.ToUInt16(Player0Health, 0);
         }
 
+    }
+    public void GameEnd(byte winner)
+    {
+        gameState = GameState.End;
+        switch (winner)
+        {
+            case 0:
+                Debug.Log("You Win!");
+                break;
+            case 1:
+                Debug.Log("You Lose...");
+                break;
+            case 2:
+                Debug.Log("Hikiwake");
+                break;
+            default:
+                Debug.Log("不正な値:" + winner);
+                break;
+        }
     }
 }
