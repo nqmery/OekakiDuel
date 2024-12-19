@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-class CardData
+public class CardData
 {
     public int id;
     public int attack;

@@ -9,9 +9,6 @@ public class PaintController : MonoBehaviour{
 	private RawImage m_image = null;
     [SerializeField]
     private Slider slider;
-    [SerializeField]
-    private int maxTime;
-
 	public Texture2D m_texture = null;
 
     public int m_width;
@@ -100,9 +97,6 @@ public class PaintController : MonoBehaviour{
     }
 
     private void Start (){
-        if(maxTime == 0){ //0除算対策
-            maxTime = 1;
-        }
         paintColor = Color.black;
         slider.value = 1;
         var rect = m_image.gameObject.GetComponent<RectTransform>().rect;
@@ -117,10 +111,11 @@ public class PaintController : MonoBehaviour{
         var m_imagePos = m_image.gameObject.GetComponent<RectTransform>().anchoredPosition;
         m_disImagePos = new Vector2(m_imagePos.x - rect.width/2, m_imagePos.y - rect.height/2);
     }
-
+    private void Update(){
+    }
     //下の関数を追加（2021/10/21）
     //テクスチャを白色にする関数
-    private void WhiteTexture(int width, int height){
+    public void WhiteTexture(int width, int height){
         for(int w = 0; w < width; w++){
             for (int h = 0; h < height; h++){
                 m_texture.SetPixel(w, h, Color.white);
