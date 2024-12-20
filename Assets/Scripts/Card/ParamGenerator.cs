@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using System.Text;
-using System;
+// using System;
 using System.Data;
 [DefaultExecutionOrder(-5)]
 public class ParamGenerator : MonoBehaviour
@@ -42,7 +42,37 @@ public class ParamGenerator : MonoBehaviour
         int cost = (int)(hashValue % 250);
         int speed = (int)(hashValue % 500);
         int effect = (int)(hashValue % 10);
-
+        int randam = Random.Range(1, 101);
+        if(randam <= 70){
+            attack /= 1000; 
+        }
+        randam = Random.Range(1, 101);
+        if(randam <= 70){
+            defense /= 1000;
+        }
+        switch(effect){
+            case 10:
+                attack %= 20000; 
+            break;
+            case 11:
+                attack %= 10000;
+            break;
+            case 12:
+                attack %= 1000;
+            break;
+            case 13:
+                attack %= 20000;
+            break;
+            case 14:
+                attack %= 20000;
+            break;
+            case 15:
+                attack %= 50000;
+            break;
+            case 16:
+                attack = 0;
+            break;
+        }
         return (hashValue, attack, defense, cost, speed, effect);
     }
 
