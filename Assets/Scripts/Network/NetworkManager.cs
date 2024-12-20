@@ -39,6 +39,11 @@ public class NetworkManager : MonoBehaviour
         }
 
     }
+
+    /// カード交換用
+    public bool isSendDone = false;
+    public bool isRecieveDone = false;
+
     public async void GameStart()
     {
         Button startbutton = GameObject.Find("StartButton").GetComponent<Button>();
@@ -93,7 +98,14 @@ public class NetworkManager : MonoBehaviour
                 SceneManager.LoadScene("DrawScene");
             }
         }
-        
+
+        //カード交換が終わったらバトルシーンへ遷移
+        if (isSendDone && isRecieveDone)
+        {
+            CardTradeConsole.cardTradeConsole.addConsoleText("カード交換が完了しました");
+            SceneManager.LoadScene("BattleScene");
+        }
+
 #if !UNITY_WEBGL || UNITY_EDITOR
         websocket?.DispatchMessageQueue();
 #endif
