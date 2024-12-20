@@ -49,16 +49,17 @@ public class BattleManager : MonoBehaviour
     void Awake()
     {
         battleManager = this;
-    }
-    void Start()
-    {
         myCardSelected = null;
         rivalCardSelected = null;
 
-        myHP = DefaultHP; 
-        cost = DefaultCost; 
-        costHeal  = DefaultCostHeal; 
-        rivalHP = DefaultHP; 
+        myHP = DefaultHP;
+        cost = DefaultCost;
+        costHeal = DefaultCostHeal;
+        rivalHP = DefaultHP;
+    }
+    void Start()
+    {
+        
     }
 
     // Update is called once per frame
@@ -140,7 +141,8 @@ public class BattleManager : MonoBehaviour
             //選択したカードを使用済みにする
             CardFolder.cardFolder.myCard[cardNum].isUsed = true;
 
-
+            //コストを減らす
+            cost -= myCardSelected.cost;
 
             //カード選択完了信号を送信
             byte[] sendData = (new byte[] { 36, 0, NetworkManager.playerID, (byte)myCardSelected.id }).ToArray();
