@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 053ae1fdea747a844a6f2c67b063330d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardImage: {fileID: 0}
+  cardImage: {fileID: 5186727785793634971}
   isMine: 1
   cardNum: 0
   Test: 0
