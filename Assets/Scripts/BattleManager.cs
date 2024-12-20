@@ -239,10 +239,13 @@ public class BattleManager : MonoBehaviour
                 Debug.Log("不正な値:" + winner);
                 break;
         }
+        NetworkManager.networkManager.DisConnectWebsocket();
         await System.Threading.Tasks.Task.Delay(3000);
         //ゲーム終了後の処理
+        
+        
         Destroy(CardFolder.cardFolder.gameObject);
         Destroy(NetworkManager.networkManager.gameObject);
-        SceneManager.LoadSceneAsync("Title");
+        SceneManager.LoadSceneAsync("TitleScene");
     }
 }

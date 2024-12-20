@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using UnityEngine.XR;
 
 
+
 public class NetworkManager : MonoBehaviour
 {
     public static NetworkManager networkManager;
@@ -40,6 +41,9 @@ public class NetworkManager : MonoBehaviour
     }
     public async void GameStart()
     {
+        Button startbutton = GameObject.Find("StartButton").GetComponent<Button>();
+        startbutton.gameObject.SetActive(false);
+
         networkManager = this;
         websocket = new WebSocket("ws://localhost:3000");
 
@@ -135,6 +139,23 @@ public class NetworkManager : MonoBehaviour
         byte[] message = messageList[0];
         messageList.RemoveAt(0);
         return message;
+    }
+    public async void DisConnectWebsocket()
+    {
+        if (websocket != null)
+        {
+            await websocket.Close();
+        }
+    }
+
+    public async void chuudanWebsocket()
+    {
+        if (websocket != null)
+        {
+            await websocket.Close();
+        }
+        Destroy(gameObject);
+        SceneManager.LoadSceneAsync("TitleScene");
     }
 
 }
