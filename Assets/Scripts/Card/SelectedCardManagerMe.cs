@@ -9,14 +9,17 @@ public class SelectedCardManagerME : MonoBehaviour
 
     [SerializeField]
     private Texture texture;
+    [SerializeField]
     private RawImage rawImage;
     // Start is called before the first frame update
     void Start()
     {
-        Transform childTransform = transform.Find("CardTexture");
-        RawImage rawImage = childTransform.GetComponent<RawImage>();
-
-        rawImage.texture = BattleManager.myCardSelected.cardImage;
+        var rect = rawImage.gameObject.GetComponent<RectTransform>().rect;
+        Texture2D texture = new Texture2D((int)rect.width, (int)rect.height, TextureFormat.RGBA32, false);
+        
+        texture = BattleManager.myCardSelected.cardImage;
+        rawImage.texture = texture;
+         
     }
 
     // Update is called once per frame

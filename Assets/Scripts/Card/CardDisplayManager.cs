@@ -9,6 +9,8 @@ public class CardDisplayManager : MonoBehaviour
     //カードの画像
     [SerializeField]
     private Texture newTexture;
+    [SerializeField]
+    private RawImage cardImage;
 
     //自分のカードかどうか
     [SerializeField]
