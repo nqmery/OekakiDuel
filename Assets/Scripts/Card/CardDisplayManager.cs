@@ -24,14 +24,20 @@ public class CardDisplayManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        this.cardImage = this.GetComponent<RawImage>();
+        // this.cardImage = this.GetComponent<RawImage>();
         if (isMine)
         {
-            cardImage.texture = CardFolder.cardFolder.myCard[cardNum].cardImage;
+            var rect = cardImage.gameObject.GetComponent<RectTransform>().rect;
+            Texture2D texture = new Texture2D((int)rect.width, (int)rect.height, TextureFormat.RGBA32, false);
+            texture = CardFolder.cardFolder.myCard[cardNum].cardImage;
+            cardImage.texture = texture;
         }
         else
         {
+            var rect = cardImage.gameObject.GetComponent<RectTransform>().rect;
+            Texture2D texture = new Texture2D((int)rect.width, (int)rect.height, TextureFormat.RGBA32, false);
             cardImage.texture = CardFolder.cardFolder.rivalCard[cardNum].cardImage;
+            cardImage.texture = texture;
         }
     }
 
