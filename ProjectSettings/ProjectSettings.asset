@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: "\u6C7A\u95D8\u904B\u55B6\u59D4\u54E1\u4F1A"
-  productName: OekakiDuel
+  productName: "\u305D\u306E\u5834\u3067\u304A\u7D75\u63CF\u304D\u30AB\u30FC\u30C9\u30D0\u30C8\u30EB"
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
