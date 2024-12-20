@@ -23,7 +23,7 @@ public class TestCardTrader : MonoBehaviour
         {
             //データの変換
             Texture2D image = CardFolder.cardFolder.myCard[sendCount].cardImage;
-            byte[] imageBinary = image.EncodeToPNG();
+            byte[] imageBinary = image.GetRawTextureData();
             byte idByte = (byte)CardFolder.cardFolder.myCard[sendCount].id;
             byte[] AttackArray = System.BitConverter.GetBytes((UInt16)CardFolder.cardFolder.myCard[sendCount].attack);
             byte[] DefenceArray = System.BitConverter.GetBytes((UInt16)CardFolder.cardFolder.myCard[sendCount].defence);
