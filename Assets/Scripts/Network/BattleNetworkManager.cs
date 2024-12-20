@@ -29,7 +29,7 @@ public class BattleNetworkManager : MonoBehaviour
                     //ターン開始信号の受信
                     //await Task.Delay(3000);
                     //ターンの処理が終了してから実行
-                    if(BattleManager.gameState == BattleManager.GameState.TurnEnd)
+                    if(BattleManager.gameState == BattleManager.GameState.TurnEnd || BattleManager.gameState == BattleManager.GameState.BeforeGame)
                     {
                         BattleManager.battleManager.ChangeTurnCount(NetworkManager.networkManager.PopMessage()[2]);
                     }

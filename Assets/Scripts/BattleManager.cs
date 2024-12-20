@@ -25,7 +25,7 @@ public class BattleManager : MonoBehaviour
         none //なし
     }
     [SerializeField]
-    public static GameState gameState = GameState.CardSelect;
+    public static GameState gameState = GameState.BeforeGame;
 
     private int turnCount = 0; //ターン数
 
@@ -45,6 +45,7 @@ public class BattleManager : MonoBehaviour
     public static string cardEffectExplainMe = "";
     public static string cardEffectExplainRival = "";
 
+    bool is26Done = false;//種別26の通信が発動したかどうか
     // Start is called before the first frame update
     void Awake()
     {
@@ -68,6 +69,12 @@ public class BattleManager : MonoBehaviour
         switch (gameState)
         {
             case GameState.BeforeGame:
+                if(is26Done == false)
+                {
+                    byte[] sendData = (new byte[] { 26, NetworkManager.playerID,}).ToArray();
+                    NetworkManager.networkManager.SendWebSocketMessage(sendData);
+                    is26Done = true;
+                }
                 break;
             case GameState.CardSelect:
                 //カードを選ぶ処理
@@ -99,13 +106,13 @@ public class BattleManager : MonoBehaviour
     }
     public void CostHealEffect(int value)
     {
-        if (value == 0)
+        if (value == 1)
+        {
+            costHeal = (int)((double)costHeal*1.2);
+        }
+        else if(value == 2)
         {
             costHeal *= 2;
-        }
-        else
-        {
-            costHeal += value;
         }
     }
 
