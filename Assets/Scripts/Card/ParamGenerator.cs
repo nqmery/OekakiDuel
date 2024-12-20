@@ -5,15 +5,18 @@ using UnityEngine;
 using System.Text;
 using System;
 using System.Data;
-
+[DefaultExecutionOrder(-5)]
 public class ParamGenerator : MonoBehaviour
 {
     public static ParamGenerator paramGenerator;
-    // Start is called before the first frame update
-    void Start()
-    {
+    void Awake(){
         paramGenerator = this;
     }
+    // Start is called before the first frame update
+    // void Start()
+    // {
+    //     paramGenerator = this;
+    // }
 
     // Update is called once per frame
     void Update()
