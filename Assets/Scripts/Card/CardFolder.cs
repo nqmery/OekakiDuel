@@ -11,8 +11,16 @@ public class CardFolder : MonoBehaviour
 
     void Awake()
     {
-        cardFolder = this;
-
+        if (cardFolder == null)
+        {
+            cardFolder = this;
+            DontDestroyOnLoad(gameObject); // シーン遷移時に破棄されないように設定
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
         //カード情報の初期化
         myCard = new CardData[5];
         rivalCard = new CardData[5];

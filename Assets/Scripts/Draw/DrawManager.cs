@@ -1,8 +1,10 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+
+using UnityEngine.SceneManagement;
 public class DrawManager : MonoBehaviour{
     [SerializeField]
     private int maxTime;
@@ -38,27 +40,37 @@ public class DrawManager : MonoBehaviour{
     }
 
     // Update is called once per frame
-    void Update(){
-        if(canDraw){
+    void Update()
+    {
+        if (canDraw)
+        {
             time += Time.deltaTime;
-            if(maxTime - time >= 0){
+            if (maxTime - time >= 0)
+            {
                 slider.value = (maxTime - time) / maxTime;
-                if((maxTime - time) / maxTime < 0.3){
+                if ((maxTime - time) / maxTime < 0.3)
+                {
                     timeFillImage.color = Color.red;
                 }
             }
-            if(maxTime - time <= 0){
+            if (maxTime - time <= 0)
+            {
                 canDraw = false;
                 Texture2D texture2D = (Texture2D)rawImage.texture;
                 var rect = rawImage.gameObject.GetComponent<RectTransform>().rect;
                 drawSave.CardSave(texture2D, nowCardDrawNumber);
                 paintController.WhiteTexture((int)rect.width, (int)rect.height);
-                if(nowCardDrawNumber < 4){
+                if (nowCardDrawNumber < 4)
+                {
                     startText.enabled = true;
                     nowCardDrawNumber++;
                     nowDrawNumberText.text = $"{nowCardDrawNumber + 1}枚目";
                     startText.text = "Ready?";
                     Invoke("canDrawTrue", 2f);
+                }
+                else if (nowCardDrawNumber == 4)
+                {
+                    SceneManager.LoadScene("TradeCard");
                 }
             }
         }

@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DrawScene.unity
     guid: 28b73c455600dd74b9fc1fc4cbe683c1
+  - enabled: 1
+    path: Assets/Scenes/TradeCard.unity
+    guid: 01120800219ed6a498fa1a0f12a00075
   m_configObjects: {}
