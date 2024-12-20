@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BattleManager : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class BattleManager : MonoBehaviour
         none //なし
     }
     [SerializeField]
-    public static GameState gameState = GameState.BeforeGame;
+    public static GameState gameState = GameState.CardSelect;
 
     private int turnCount = 0; //ターン数
 
@@ -40,6 +41,9 @@ public class BattleManager : MonoBehaviour
     //相手のカード
     private CardData rivalCardSelected = null;
 
+
+    public static string cardEffectExplainMe = "";
+    public static string cardEffectExplainRival = "";
 
     // Start is called before the first frame update
     void Awake()
@@ -109,8 +113,14 @@ public class BattleManager : MonoBehaviour
     {
         turnCount = count;
         ChangeGameState(GameState.CardSelect);
+        //選択したカードを初期化
+        SelectedCardManagerME.selectedCardManagerME.DisableImage();
+        SelectedCardManagerRival.selectedCardManagerRival.DisableImage();
         myCardSelected = null;
         rivalCardSelected = null;
+        //カードの説明を初期化
+        cardEffectExplainMe = "";
+        cardEffectExplainRival = "";
         Debug.Log("TurnCount: " + turnCount);
     }
 
@@ -129,6 +139,9 @@ public class BattleManager : MonoBehaviour
             myCardSelected = CardFolder.cardFolder.myCard[cardNum];
             //選択したカードを使用済みにする
             CardFolder.cardFolder.myCard[cardNum].isUsed = true;
+
+
+
             //カード選択完了信号を送信
             byte[] sendData = (new byte[] { 36, 0, NetworkManager.playerID, (byte)myCardSelected.id }).ToArray();
             NetworkManager.networkManager.SendWebSocketMessage(sendData);
@@ -157,6 +170,8 @@ public class BattleManager : MonoBehaviour
         if (gameState == GameState.WaitingSelect)
         {
             ChangeGameState(GameState.TurnProcessing);
+            SelectedCardManagerME.selectedCardManagerME.SetCardImage(myCardSelected.cardImage);
+            SelectedCardManagerRival.selectedCardManagerRival.SetCardImage(rivalCardSelected.cardImage);
         }
     }
 
@@ -204,7 +219,7 @@ public class BattleManager : MonoBehaviour
         }
 
     }
-    public void GameEnd(byte winner)
+    public async void GameEnd(byte winner)
     {
         gameState = GameState.End;
         switch (winner)
@@ -222,5 +237,10 @@ public class BattleManager : MonoBehaviour
                 Debug.Log("不正な値:" + winner);
                 break;
         }
+        await System.Threading.Tasks.Task.Delay(3000);
+        //ゲーム終了後の処理
+        Destroy(CardFolder.cardFolder.gameObject);
+        Destroy(NetworkManager.networkManager.gameObject);
+        SceneManager.LoadSceneAsync("Title");
     }
 }
