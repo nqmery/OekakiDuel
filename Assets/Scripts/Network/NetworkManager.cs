@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NativeWebSocket;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using UnityEngine.XR;
 
 
 public class NetworkManager : MonoBehaviour
@@ -14,12 +17,28 @@ public class NetworkManager : MonoBehaviour
     public event Action<byte[]> OnMessageReceived;
 
     //通信内容を保持するリスト
+    [SerializeField]
     private List<byte[]> messageList = new List<byte[]>();
 
     //プレイヤー番号を保持する変数
     public static byte playerID = 0; //仮で0に設定
 
-    async void Awake()
+    public Text statusText; // ステータスメッセージ
+    private void Awake()
+    {
+        if (networkManager == null)
+        {
+            networkManager = this;
+            DontDestroyOnLoad(gameObject); // シーン遷移時に破棄されないように設定
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+    }
+    public async void GameStart()
     {
         networkManager = this;
         websocket = new WebSocket("ws://localhost:3000");
@@ -28,7 +47,15 @@ public class NetworkManager : MonoBehaviour
         {
             // メッセージをデコード
             //string message = System.Text.Encoding.UTF8.GetString(bytes);
-            Debug.Log("Message received: " + bytes.ToString());
+            //Debug.Log("Message received: " + bytes.ToString());
+
+            // バイト配列を適切に表示
+            string receivedData = BitConverter.ToString(bytes);
+            Debug.Log($"Message received: {receivedData}");
+
+            // 必要ならバイト配列をデコード（例: テキストの場合）
+            //string decodedMessage = System.Text.Encoding.UTF8.GetString(bytes);
+            //Debug.Log($"Decoded message: {decodedMessage}");
 
             // メッセージをリストに追加
             messageList.Add(bytes);
@@ -36,6 +63,8 @@ public class NetworkManager : MonoBehaviour
 
             // イベントを発火して通知
             OnMessageReceived?.Invoke(bytes);
+
+            
         };
 
         await websocket.Connect();
@@ -43,8 +72,26 @@ public class NetworkManager : MonoBehaviour
 
     void Update()
     {
+
+
+        if (GetMessage() != null)
+        {
+            if (GetMessage()[0] == 10) //通信種別が10のとき
+            {
+                playerID = PopMessage()[1];
+                Debug.Log("Player ID received: " + playerID);
+                statusText.text = "対戦相手を待っています...";
+            }
+            else if (GetMessage()[0] == 0x10) // 0x10がゲーム開始シグナル
+            {
+                PopMessage();
+                Debug.Log("Game start signal received. Loading next scene...");
+                SceneManager.LoadScene("DrawScene");
+            }
+        }
+        
 #if !UNITY_WEBGL || UNITY_EDITOR
-        websocket.DispatchMessageQueue();
+        websocket?.DispatchMessageQueue();
 #endif
     }
 
