@@ -37,9 +37,9 @@ public class BattleManager : MonoBehaviour
 
     //選択したカードのインスタンス
     //自分のカード
-    private CardData myCardSelected = null;
+    public  static CardData myCardSelected = null;
     //相手のカード
-    private CardData rivalCardSelected = null;
+    public static  CardData rivalCardSelected = null;
 
 
     public static string cardEffectExplainMe = "";

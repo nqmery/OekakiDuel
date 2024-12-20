@@ -8,7 +8,7 @@ public class CardDisplayManager : MonoBehaviour
 {
     //カードの画像
     [SerializeField]
-    private RawImage cardImage;
+    private Texture newTexture;
 
     //自分のカードかどうか
     [SerializeField]
@@ -24,14 +24,16 @@ public class CardDisplayManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        this.cardImage = this.GetComponent<RawImage>();
+        Transform childTransform = transform.Find("CardTexture");
+
+        RawImage rawImage = childTransform.GetComponent<RawImage>();
         if (isMine)
         {
-            cardImage.texture = CardFolder.cardFolder.myCard[cardNum].cardImage;
+            rawImage.texture = CardFolder.cardFolder.myCard[cardNum].cardImage;
         }
         else
         {
-            cardImage.texture = CardFolder.cardFolder.rivalCard[cardNum].cardImage;
+            rawImage.texture = CardFolder.cardFolder.rivalCard[cardNum].cardImage;
         }
     }
 

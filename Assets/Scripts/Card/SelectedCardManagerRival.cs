@@ -8,11 +8,15 @@ public class SelectedCardManagerRival : MonoBehaviour
     public static SelectedCardManagerRival selectedCardManagerRival;
 
     [SerializeField]
-    private RawImage cardImage;
+    private Texture texture;
+    private RawImage rawImage;
     // Start is called before the first frame update
     void Start()
     {
-        this.cardImage = this.GetComponent<RawImage>();
+        Transform childTransform = transform.Find("CardTexture");
+        RawImage rawImage = childTransform.GetComponent<RawImage>();
+
+        rawImage.texture = BattleManager.myCardSelected.cardImage;
     }
 
     // Update is called once per frame
@@ -22,12 +26,12 @@ public class SelectedCardManagerRival : MonoBehaviour
     }
     public void DisableImage()
     {
-        cardImage.gameObject.SetActive(false);
+        this.gameObject.SetActive(false);
     }
 
     public void SetCardImage(Texture texture)
     {
-        cardImage.texture = texture;
+        rawImage.texture = texture;
     }
 
 

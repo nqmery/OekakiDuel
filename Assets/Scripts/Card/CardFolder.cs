@@ -22,8 +22,8 @@ public class CardFolder : MonoBehaviour
             return;
         }
         //カード情報の初期化
-        myCard = new CardData[5];
-        rivalCard = new CardData[5];
+        //myCard = new CardData[5];
+        //rivalCard = new CardData[5];
     }
     // Start is called before the first frame update
     void Start()

@@ -30,12 +30,13 @@ public class TestCardReciever : MonoBehaviour
                     byte[] attackArray = new byte[] { recievedData[3], recievedData[4] };
                     byte[] defenceArray = new byte[] { recievedData[5], recievedData[6] };
 
-
+                    Texture2D texture = new Texture2D(810, 1080);
                     CardFolder.cardFolder.rivalCard[recieveCount].attack = BitConverter.ToUInt16(attackArray, 0);
                     CardFolder.cardFolder.rivalCard[recieveCount].defence = BitConverter.ToUInt16(defenceArray, 0);
                     CardFolder.cardFolder.rivalCard[recieveCount].speed = recievedData[7];
                     CardFolder.cardFolder.rivalCard[recieveCount].effect = recievedData[8];
-                    CardFolder.cardFolder.rivalCard[recieveCount].cardImage.LoadImage(imageBinary);
+                    texture.LoadImage(imageBinary);
+                    CardFolder.cardFolder.rivalCard[recieveCount].cardImage = texture;
 
                     CardTradeConsole.cardTradeConsole.addConsoleText("【受信】"+recieveCount.ToString() + "枚目のカード情報を受信完了");
                 }
@@ -46,6 +47,7 @@ public class TestCardReciever : MonoBehaviour
                 CardTradeConsole.cardTradeConsole.addConsoleText("全てのカード情報を受信完了");
                 NetworkManager.networkManager.isRecieveDone = true;
             }
+            recieveCount++;
         }
     }
 }

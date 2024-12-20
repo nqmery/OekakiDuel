@@ -3,22 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using System.Text;
-using System;
+// using System;
 using System.Data;
-
+[DefaultExecutionOrder(-5)]
 public class ParamGenerator : MonoBehaviour
 {
     public static ParamGenerator paramGenerator;
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         paramGenerator = this;
     }
+    // Start is called before the first frame update
+    // void Start()
+    // {
+    //     paramGenerator = this;
+    // }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     //デバッグ用表示
@@ -28,7 +32,7 @@ public class ParamGenerator : MonoBehaviour
         Debug.Log("CRC32: " + a.hashValue + "ATK: " + a.attack + "DEF: " + a.defense + "cost: " + a.cost + "SPD: " + a.speed + "EFF: " + a.effect);
     }
 
-    public (uint hashValue,int attack,int defense, int cost, int speed, int effect) GenerateParams(Texture2D image)
+    public (uint hashValue, int attack, int defense, int cost, int speed, int effect) GenerateParams(Texture2D image)
     {
         CRC32 crc32 = new CRC32();
         uint hashValue = crc32.Calc(image.GetRawTextureData());
@@ -39,7 +43,40 @@ public class ParamGenerator : MonoBehaviour
         int cost = (int)(hashValue % 250);
         int speed = (int)(hashValue % 500);
         int effect = (int)(hashValue % 10);
-
+        int randam = Random.Range(1, 101);
+        if (randam <= 70)
+        {
+            attack /= 1000;
+        }
+        randam = Random.Range(1, 101);
+        if (randam <= 70)
+        {
+            defense /= 1000;
+        }
+        switch (effect)
+        {
+            case 10:
+                attack %= 20000;
+                break;
+            case 11:
+                attack %= 10000;
+                break;
+            case 12:
+                attack %= 1000;
+                break;
+            case 13:
+                attack %= 20000;
+                break;
+            case 14:
+                attack %= 20000;
+                break;
+            case 15:
+                attack %= 50000;
+                break;
+            case 16:
+                attack = 0;
+                break;
+        }
         return (hashValue, attack, defense, cost, speed, effect);
     }
 

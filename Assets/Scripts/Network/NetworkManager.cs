@@ -50,7 +50,7 @@ public class NetworkManager : MonoBehaviour
         startbutton.gameObject.SetActive(false);
 
         networkManager = this;
-        websocket = new WebSocket("ws://localhost:3000");
+        websocket = new WebSocket("ws://10.2.0.15:3000");
 
         websocket.OnMessage += (bytes) =>
         {

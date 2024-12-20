@@ -41,6 +41,7 @@ public class TestCardTrader : MonoBehaviour
             CardTradeConsole.cardTradeConsole.addConsoleText("全てのカード情報を送信完了");
             NetworkManager.networkManager.isSendDone = true;
         }
+        sendCount ++;
     }
     //テスト用 カード情報送信関数
     public void OnPressed()
