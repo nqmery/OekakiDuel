@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DrawSave : MonoBehaviour
 {
-    //public static CardData[] cardDatas = new CardData[5];
+    public static CardData[] cardDatas = new CardData[5];
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +15,7 @@ public class DrawSave : MonoBehaviour
     {
 
     }
-    /*public void CardSave(Texture2D texture2D, int cardNumber){
+    public void CardSave(Texture2D texture2D, int cardNumber){
         CardData cardData = new CardData();
         // Debug.Log("CardSave起動");
         var cardParameter = ParamGenerator.paramGenerator.GenerateParams(texture2D);
@@ -31,10 +31,10 @@ public class DrawSave : MonoBehaviour
         // Debug.Log(cardDatas[cardNumber].attack);
         ParamGenerator.paramGenerator.DebugLog(texture2D);
         
-    }*/
+    }
 
     //CardFolderに保存
-    public void CardSave(Texture2D texture2D, int cardNumber)
+    /*public void CardSave(Texture2D texture2D, int cardNumber)
     {
         
         // Debug.Log("CardSave起動");
@@ -50,5 +50,5 @@ public class DrawSave : MonoBehaviour
         //cardDatas[cardNumber] = cardData;
         // Debug.Log(cardDatas[cardNumber].attack);
         ParamGenerator.paramGenerator.DebugLog(texture2D);
-    }
+    }*/
 }

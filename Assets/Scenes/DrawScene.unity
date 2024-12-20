@@ -2233,6 +2233,7 @@ MonoBehaviour:
   drawSave: {fileID: 916037552}
   nowDrawNumberText: {fileID: 894635750}
   startText: {fileID: 504647797}
+  texture2D1: {fileID: 0}
 --- !u!4 &713950009
 Transform:
   m_ObjectHideFlags: 0

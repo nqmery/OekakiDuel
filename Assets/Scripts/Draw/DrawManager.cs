@@ -22,6 +22,8 @@ public class DrawManager : MonoBehaviour{
     private Text nowDrawNumberText;
     [SerializeField]
     private Text startText;
+    [SerializeField]
+    private Texture2D texture2D1;
     private int nowCardDrawNumber;
     private float time;
     public static bool canDraw;
@@ -56,9 +58,10 @@ public class DrawManager : MonoBehaviour{
             if (maxTime - time <= 0)
             {
                 canDraw = false;
-                Texture2D texture2D = (Texture2D)rawImage.texture;
+                // Texture2D texture2D = (Texture2D)rawImage[nowCardDrawNumber].texture;
                 var rect = rawImage.gameObject.GetComponent<RectTransform>().rect;
-                drawSave.CardSave(texture2D, nowCardDrawNumber);
+                drawSave.CardSave((Texture2D)rawImage.texture, nowCardDrawNumber);
+                texture2D1 = DrawSave.cardDatas[0].cardImage;
                 paintController.WhiteTexture((int)rect.width, (int)rect.height);
                 if (nowCardDrawNumber < 4)
                 {
